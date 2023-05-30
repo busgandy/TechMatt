@@ -6,24 +6,26 @@ resource "aws_vpc" "main" {
   }
 }
 
-#resource "aws_subnet" "public" {
-#  count = length(var.public_subnet_cidr_blocks)
-
-#  cidr_block = var.public_subnet_cidr_blocks[count.index]
-#  vpc_id     = aws_vpc.main.id
-
-#  tags = {
-#    Name = "example-public-subnet-${count.index}"
-#  }
-#}
 resource "aws_subnet" "public" {
+  count = length(var.public_subnet_cidr_blocks)
+
+  cidr_block = var.public_subnet_cidr_blocks[count.index]
   vpc_id     = aws_vpc.main.id
-  cidr_block = "10.0.1.0/24"
 
   tags = {
-    Name = "Public"
+    Name = "example-public-subnet-${count.index}"
   }
 }
+
+
+#resource "aws_subnet" "public" {
+#  vpc_id     = aws_vpc.main.id
+#  cidr_block = "10.0.1.0/24"
+#
+#  tags = {
+#    Name = "Public"
+#  }
+#}
 
 
 
